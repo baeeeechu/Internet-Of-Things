@@ -221,6 +221,6 @@
 
 
 
-예제 6-1 : Person.prototype; Person이라는 생성자 함수의 Prototype에 getName 메서드를 지정했다고 했을 때 인스턴스는 __proto__ 프로퍼티를 통해 getName을 호출할 수 있음.
+예제 6-1 : Person.prototype; Person이라는 생성자 함수의 Prototype에 getName 메서드를 지정했다고 했을 때 인스턴스는 __ proto __ 프로퍼티를 통해 getName을 호출할 수 있음.
 
-예제 6-2 : Prototype과 __proto__ :
+예제 6-2 : Prototype과 __ proto __ :
