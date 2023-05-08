@@ -244,35 +244,35 @@
 
 
 
-예제 7-1 : 스태틱 메서드, 프로토타입 메서드;
+예제 7-1 : 스태틱 메서드, 프로토타입 메서드; 인스턴스에 상속되는지(인스턴스가 참조하는지) 여부에 따라 스태틱 멤버와 인스턴스 멤버로 나뉘어짐. / 자바스크립트에서는 인스턴스에서도 직접 메서드를 정의할 수 있기에 혼란을 야기할 수 있음. 때문에 프로토타입 메서드라고 불림.
 
-예제 7-2 : 6-2-4절의 Grade 생성자 함수 및 인스턴스;
+예제 7-2 : 6-2-4절의 Grade 생성자 함수 및 인스턴스; Length 프로퍼티가 configurable(삭제가능)하다는 점과, Grade.prototype에 빈 배열을 참조시켰다는 문제점이 있음.
 
-예제 7-3 : length 프로퍼티를 삭제한 경우;
+예제 7-3 : length 프로퍼티를 삭제한 경우; 다시 push했더니, push한 값이 0번째 인덱스에 들어갔고, length가 1이 됨. 내장객체인 배열 인스턴스의 length 프로퍼티는 configurable 속성이 false라서 삭제가 불가능하지만, Grade 클래스의 인스턴스는 배열 메서드를 상속하지만 기본적으로는 일 객체의 성질을 그대로 지니므로 삭제가 가능해서 문제가 됨.
 
-예제 7-4 : 요소가 있는 배열을 prototype에 매칭한 경우;
+예제 7-4 : 요소가 있는 배열을 prototype에 매칭한 경우; Array 내장 클래스를 상속하는 Grade 클래스의 case & 클래스에 있는 값이 인스턴스의 동작에 영향을 주면 안됨. 인스턴스와의 관계에서는 구체적인 데이터를 지니지 않고 오직 인스턴스가 사용할 메서드만을 지니는 추상적인 틀로서만 작용하게끔 작성하면 예기치 않은 오류가 발생할 가능성 X
 
-예제 7-5 : Rectangle.Square 클래스;
+예제 7-5 : Rectangle.Square 클래스; 사용자가 정의한 두 클래스 사이에서의 상속관계 case, 넓이를 구하는 getArea 메서드를 각 클래스에 추가한 상황
 
-예제 7-6 : Square 클래스 변형;
+예제 7-6 : Square 클래스 변형; Square에서 width 프로퍼티만 쓰지 않고 height 프로퍼티에 width 값을 부여하는 형태가 된다면 getArea도 동일하게 고칠 수 있음.
 
-예제 7-7 : Rectangle을 상속하는 Square 클래스;
+예제 7-7 : Rectangle을 상속하는 Square 클래스; Square의 생성자 함수 내부에서 Rectangle의 생성자 함수를 함수로써 호출. 인자 height 자리에 width를 전달 & 메서드를 상속하기 위해 Square의 프로토타입 객체에 Rectangle의 인스턴스를 부여
 
-예제 7-8 : 클래스 상속 및 추상화 방법(1) - 인스턴스 생성 후 프로퍼티 제거;
+예제 7-8 : 클래스 상속 및 추상화 방법(1) - 인스턴스 생성 후 프로퍼티 제거; 클래스가 구체적인 데이터를 지니지 않게 하는 첫 번재 방법으로, extendClass1 함수는 SuperClass & SubClass에 추가할 메서드들이 정의된 객체를 받아서 SubClass의 prototype 내용을 정리하고 freeze하는 내용으로 구성돼있음.
 
-예제 7-9 : 클래스 상속 및 추상화 방법(2) - 빈 함수를 활용;
+예제 7-9 : 클래스 상속 및 추상화 방법(2) - 빈 함수를 활용; 클래스가 구체적인 데이터를 지니지 않게 하는 두 번째 방법으로, Bridge라는 빈 함수를 만들고, Bridge.prototype이 Rectangle.prototype을 참조하게 한 다음, Square.prototype에 new Bridge()로 할당하면, 우측 그림처럼 Rectangle 자리에 Bridge가 대체됨. 이로써 인스턴스를 제외한 프로토타입 체인 경로상에는 더는 구체적인 데이터가 남아있지 않게 됨. 즉시실행함수 내부에서 Bridge를 선언해서 이를 클로저로 활용함으로써 메모리에 불필요한 함수 선언을 줄임. subMethods에는 SubClass의 prototype에 담길 메서드들을 객체로 전달하게끔 함.
 
-예제 7-10 : 클래스 상속 및 추상화 방법(3) - Object.create 활용;
+예제 7-10 : 클래스 상속 및 추상화 방법(3) - Object.create 활용; ES5에 도입된 방법으로 SubClass의 prototype의 __ proto __ 가 SuperClass의 prototype을 바라보되, SuperClass의 인스턴스가 되지 않으므로 앞서 소개한 두 방법보다 간단하면서 안전함.
 
-예제 7-11 : 클래스 상속 및 추상화 방법 - 완성본(1) - 인스턴스 생성 후 프로퍼티 제거;
+예제 7-11 : 클래스 상속 및 추상화 방법 - 완성본(1) - 인스턴스 생성 후 프로퍼티 제거; Constructor 복구 방법으로, 앞선 방법 세 가지로는 SubClass 인스턴스에는 constructor가 없고, SubClass.prototype에도 없는 상태. 프로토타입 체인상에 가장 먼저 등장하는 SuperClass.prototype의 constructor에서 가리키는 대상 SuperClass가 출력될 뿐.
 
-예제 7-12 : 클래스 상속 및 추상화 방법 - 완성본(2) - 빈 함수를 활용;
+예제 7-12 : 클래스 상속 및 추상화 방법 - 완성본(2) - 빈 함수를 활용; SubClass.prototype.constructor가 원래의 SubClass를 바라보도록 함.
 
-예제 7-13 : 클래스 상속 및 추상화 방법 - 완성본(3) - Oject.create 활용;
+예제 7-13 : 클래스 상속 및 추상화 방법 - 완성본(3) - Oject.create 활용; 일반적인 객체지향 언어에서의 클래스보다는 부족하지만, 어쨋건 기본적인 상속 및 추상화 달성
 
-예제 7-14 : 상위 클래스 접근 수단인 super 메서드 추가;
+예제 7-14 : 상위 클래스 접근 수단인 super 메서드 추가; 하위 클래스에서 상위 클래스의 프로토타입 메서드에 접근하기 위한 별도의 수단으로, 다른 객체지향 언어들의 클래스 문법 중 하나인 'super'를 흉내 내보며 상위 클래스에의 접근 수단을 제공함.
 
-예제 7-15 : ES5와 ES6의 클래스 문법 비교;
+예제 7-15 : ES5와 ES6의 클래스 문법 비교; class, constructor, staticMethod 바로 뒤에 {} 등장 & 메서드와 다음 메서드 사이에 콤마(.)로 구분 안함 & method라는 이름은 prototpye 객체 내부에 자동으로 할당되는 메서드임.
 
-예제 7-16 : ES6의 클래스 상속;
+예제 7-16 : ES6의 클래스 상속; ES5에는 상속 문법 자체가 없음. & Square를 Rectangle 클래스를 상속받는 SubClass로 만들기 위해 class 명령어 뒤에 단순히 extend Rectangle 내용을 추가하여 상속 관계 설정을 끝냄 & constructor 내부에는 super 라는 키워드를 함수처럼 사용할 수 있는데 이는 SuperClass의 constructor를 실행함. & constructor 메서드를 제외한 다른 메서드에서는 super 키워드를 마치 객체처럼 사용할 수 있고, 이때 객체는 SuperClass.prototype을 바라보는데, 호출한 메서드의 this는 super가 아닌 원래의 this를 그대로 따름.
 
