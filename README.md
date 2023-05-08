@@ -223,4 +223,8 @@
 
 예제 6-1 : Person.prototype; Person이라는 생성자 함수의 Prototype에 getName 메서드를 지정했다고 했을 때 인스턴스는 __ proto __ 프로퍼티를 통해 getName을 호출할 수 있음.
 
-예제 6-2 : Prototype과 __ proto __ :
+예제 6-2 : Prototype과 __ proto __ : 생성자 함수의 prototype에 어떤 메서드나 프로퍼티가 있다면 인스턴스에서도 마치 자신의 것처럼 해당 메서드나 프로퍼티에 접근할 수 있게 됨.
+
+예제 6-3 : constructor 프로퍼티 : 원래의 생성자 함수(자기 자신)를 참조함. 굳이? 싶지만, 인스턴스로부터 그 원형이 무엇인지를 알 수 있게 만드는 수단
+
+예제 6-4 : constructor 변경 : 
